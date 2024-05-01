@@ -2,34 +2,36 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams, useLocation } from "react-router-dom";
 const API_URL = import.meta.env.VITE_API_URL;
-`
 
-
-`;
 function TransactionDetails() {
   const { id } = useParams();
   const [invoice, setInvoice] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    const getInvoiceDetails = async () => {
+    const getInvoiceDetails = async (id) => {
+      setLoading(true);
       try {
         const response = await axios.get(
           `${API_URL}/invoice/invoice/?id=${id}`
         );
 
-        const data = response.data.data;
+        const data =await response.data.data;
 
         if (response.status === 200) {
           setInvoice(data);
+          setLoading(false)
         }
       } catch (error) {
+        setLoading(false)
         console.log(error);
       }
     };
 
-    getInvoiceDetails();
+    getInvoiceDetails(id);
   }, []);
 
+  console.log(loading);
   const nigerianCurrencyFormat = new Intl.NumberFormat("en-NG", {
     currency: "NGN",
     style: "currency",
@@ -46,7 +48,8 @@ function TransactionDetails() {
             </nav>
           </div>
         </nav>
-        <form class="max-w-6xl mx-auto">
+        {
+          loading ? <p>Loading...</p> : <form class="max-w-6xl mx-auto">
           <div className="grid grid-cols-2 gap-x-7">
             <div class="mb-5">
               <label
@@ -179,6 +182,8 @@ function TransactionDetails() {
             </div>
           </div>
         </form>
+        }
+       
       </main>
     </>
   );

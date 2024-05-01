@@ -3,8 +3,8 @@ import moment from "moment";
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "../../hooks/useLocalStorage";
-import { addCommasToNumber } from "../../utils/addCommaToNumber";
-
+//import { addCommasToNumber } from "../../utils/addCommaToNumber";
+const API_URL = import.meta.env.VITE_API_URL;
 
 function Transactions() {
   const [transactions, setTransaction] = useState([]);
@@ -43,10 +43,14 @@ function Transactions() {
     user !== null && fetchTransactions(user.id);
   }, []);
 
+ 
+
   const nigerianCurrencyFormat = new Intl.NumberFormat("en-NG", {
     currency: "NGN",
     style: "currency",
   });
+
+  console.log(transactions, user);
   return (
     <>
       {/* MAIN */}

@@ -268,9 +268,9 @@ export default function OrderForm() {
             defaultValue={orderData.sellerCompanyState}
           >
             <option value={"DEFAULT"}>
-              {Istates.length <= 0 ? "Loading States" : "Select a State"}
+              {Istates?.length <= 0 ? "Loading States" : "Select a State"}
             </option>
-            {Istates.map((state) => {
+            {Istates?.map((state) => {
               return (
                 <option value={state} key={state}>
                   {state}
@@ -319,7 +319,7 @@ export default function OrderForm() {
             id="purchase_location"
             className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
             onChange={handleSelectChange}
-            defaultValue={orderData.sellerCompanyName}
+            defaultValue={orderData?.sellerCompanyName}
           >
             <option value={"DEFAULT"}>
               {companiesInLocation.length <= 0 ? "Loading companies" : "Select"}
